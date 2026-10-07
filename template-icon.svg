@@ -1,0 +1,26 @@
+# OpenWA: WhatsApp gateway — chat bubble with a signal bar + a green "live" check
+# House style: full-bleed dark tile, two-stop gradient, one bold white glyph.
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#022c22"/>
+      <stop offset="1" stop-color="#0c4a6e"/>
+    </linearGradient>
+    <linearGradient id="bubble" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fef08a"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" fill="url(#bg)"/>
+  <!-- chat bubble, rounded, with a small tail at lower-left -->
+  <g>
+    <rect x="34" y="42" width="188" height="150" rx="30" fill="url(#bubble)"/>
+    <path d="M 62 188 L 62 226 L 104 190 Z" fill="url(#bubble)"/>
+  </g>
+  <!-- "live message" line inside the bubble (dark, on the light bubble) -->
+  <rect x="72" y="86" width="112" height="14" rx="7" fill="#022c22" opacity="0.9"/>
+  <!-- signal check badge (white circle + green check) bottom-right of the bubble -->
+  <circle cx="204" cy="176" r="30" fill="#ffffff"/>
+  <path d="M 190 176 L 200 188 L 220 164" fill="none" stroke="#16a34a"
+        stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

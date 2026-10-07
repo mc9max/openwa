@@ -1,0 +1,34 @@
+{
+  "NODE_ENV": {
+    "value": "production",
+    "description": "Runtime mode. Keep production (the image ships the production build)."
+  },
+  "PORT": {
+    "value": "2785",
+    "description": "HTTP listen port. The bundled React dashboard, the REST API (under /api), and Swagger (when enabled) all serve from this one port."
+  },
+  "TZ": {
+    "value": "UTC",
+    "description": "Timezone for log stamps and 'today' stats. Stored message timestamps are always UTC."
+  },
+  "DATABASE_TYPE": {
+    "value": "sqlite",
+    "description": "Data store: SQLite (zero-config, lives on the openwa-data volume at /app/data) or Postgres (then also set DATABASE_HOST/PORT/USERNAME/PASSWORD, typically a sibling Postgres service)."
+  },
+  "API_KEY_PEPPER": {
+    "value": "",
+    "description": "Optional HMAC pepper for API-key hashing. Leave blank to use plain SHA-256. If you set it, set it BEFORE first boot — enabling it later locks out existing keys until the old pepper is restored."
+  },
+  "BASE_URL": {
+    "value": "",
+    "description": "Public URL of this instance (e.g. https://openwa-xyz.up.railway.app). Used in outbound payloads and callback examples. Blank = app default."
+  },
+  "ENABLE_SWAGGER": {
+    "value": "",
+    "description": "Set to 'true' to publish interactive API docs at /api/docs (off by default; recommended to leave off on a public domain)."
+  },
+  "AUTO_START_SESSIONS": {
+    "value": "",
+    "description": "Set to 'true' to reconnect previously paired WhatsApp sessions automatically on boot instead of showing a fresh QR code."
+  }
+}
