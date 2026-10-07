@@ -4,7 +4,7 @@ Open source WhatsApp API gateway — self-host the messaging layer: session
 management, Webhooks, automations, and a React dashboard, in one container.
 MIT-licensed, actively developed (rmyndharis/OpenWA, 15k+ stars, 2026-10).
 
-[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/openwa)
+[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/MWNliK)
 
 ## Dependencies for OpenWA
 
