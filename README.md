@@ -4,7 +4,7 @@ Open source WhatsApp API gateway — self-host the messaging layer: session
 management, Webhooks, automations, and a React dashboard, in one container.
 MIT-licensed, actively developed (rmyndharis/OpenWA, 15k+ stars, 2026-10).
 
-[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/openwa)
+[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/LLVyOA)
 
 ## Dependencies for OpenWA
 
@@ -79,25 +79,34 @@ Deployment surface:
 
 ## Login / Initial Access
 
-OpenWA generates a single **admin API key** on first boot. It is the only
-credential — there is no separate username/password.
+OpenWA uses a single **API key** as the admin credential — there is no
+separate username/password. Two supported ways to get one:
 
-- **Dashboard URL**: `https://<your-service>.up.railway.app` (your Railway
-  public domain, set automatically on deploy)
-- **Credentials**: `X-API-Key: owa_k1_<64-char-hex>` — no username field
-- **How to find your key** (first boot only):
-  ```bash
-  railway logs 2>&1 | grep "Admin API key"
-  # or
-  railway logs 2>&1 | grep -oE "owa_k1_[a-f0-9]{64}"
-  ```
-  The key is also persisted at `/app/data/.api-key` inside the container —
-  read it from the volume if the initial log line scrolled past:
-  ```bash
-  railway ssh -- "cat /app/data/.api-key"
-  ```
-- Use the same key to "Sign in" in the React dashboard UI (paste into the
-  API key field — no username required).
+**Option A (recommended — set it yourself at deploy time):**
+In the deploy form, set `API_MASTER_KEY` to any value of 32+ characters
+before the first boot. OpenWA will seed *that exact value* as the default
+ADMIN key. Your log-ins afterward use only that string — no log-digging.
+It is treated as a secret by the platform; nothing else is printed or stored
+in plaintext (OpenWA stores only a hash + key prefix).
+
+**Option B (leave it blank — OpenWA generates one):**
+OpenWA generates a random `owa_k1_<64-hex>` key, prints it **once** in the
+first-boot logs, and persists it to `/app/data/.api-key` on the volume.
+Grab it with either:
+
+```bash
+railway logs 2>&1 | grep -oE "owa_k1_[a-f0-9]{64}"
+# or
+railway ssh -- "cat /app/data/.api-key"
+```
+
+**Dashboard URL**: `https://<your-service>.up.railway.app` (the Railway
+public domain, set automatically on deploy). In the dashboard login field,
+paste the API key — there is **no username field**.
+
+> `API_MASTER_KEY` only takes effect on the very first boot (when the key
+> table is empty). After that, rotate by minting a new key in the dashboard and
+> revoking the old one.
 
 ## Quick Start
 

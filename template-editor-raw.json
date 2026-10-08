@@ -15,6 +15,10 @@
     "value": "sqlite",
     "description": "Data store: SQLite (zero-config, lives on the openwa-data volume at /app/data) or Postgres (then also set DATABASE_HOST/PORT/USERNAME/PASSWORD, typically a sibling Postgres service)."
   },
+  "API_MASTER_KEY": {
+    "value": "",
+    "description": "Your admin API key. Set it once, BEFORE first boot: OpenWA seeds this exact value as the default ADMIN key (needs 32+ chars in production). Leave blank and OpenWA prints a random owa_k1_ key to the first-boot logs instead. Has no effect after the first boot — rotate keys in the dashboard. Blank = safe random default."
+  },
   "API_KEY_PEPPER": {
     "value": "",
     "description": "Optional HMAC pepper for API-key hashing. Leave blank to use plain SHA-256. If you set it, set it BEFORE first boot — enabling it later locks out existing keys until the old pepper is restored."
