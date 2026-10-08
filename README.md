@@ -4,7 +4,7 @@ Open source WhatsApp API gateway — self-host the messaging layer: session
 management, Webhooks, automations, and a React dashboard, in one container.
 MIT-licensed, actively developed (rmyndharis/OpenWA, 15k+ stars, 2026-10).
 
-[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/MWNliK)
+[![Deploy to Railway](https://railway.app/button.svg)](https://railway.com/deploy/openwa)
 
 ## Dependencies for OpenWA
 
@@ -77,13 +77,35 @@ Deployment surface:
 - **Automations** — auto-reply rules, webhook fanout, group ops, contact
   management, all managed from the React dashboard or the API.
 
+## Login / Initial Access
+
+OpenWA generates a single **admin API key** on first boot. It is the only
+credential — there is no separate username/password.
+
+- **Dashboard URL**: `https://<your-service>.up.railway.app` (your Railway
+  public domain, set automatically on deploy)
+- **Credentials**: `X-API-Key: owa_k1_<64-char-hex>` — no username field
+- **How to find your key** (first boot only):
+  ```bash
+  railway logs 2>&1 | grep "Admin API key"
+  # or
+  railway logs 2>&1 | grep -oE "owa_k1_[a-f0-9]{64}"
+  ```
+  The key is also persisted at `/app/data/.api-key` inside the container —
+  read it from the volume if the initial log line scrolled past:
+  ```bash
+  railway ssh -- "cat /app/data/.api-key"
+  ```
+- Use the same key to "Sign in" in the React dashboard UI (paste into the
+  API key field — no username required).
+
 ## Quick Start
 
 1. **Deploy** — the form pre-fills `NODE_ENV`, `PORT`, `TZ`, `DATABASE_TYPE`;
    the `openwa-data` volume is created for you.
-2. **Grab your admin API key** — the first boot generates one, **prints it
-   once in the service logs** (`railway logs`) and stores it at
-   `/app/data/.api-key`. Copy it from the logs before the container restarts.
+2. **Grab your admin API key** — the first boot generates one and **prints it
+   once in the service logs**. Copy it before the container restarts.
+   (Also available: `railway ssh -- "cat /app/data/.api-key"`.)
 3. **Open the dashboard** at your up.railway.app domain — sign in with the
    admin API key.
 4. **Create a session** (dashboard or `POST /api/sessions`) → **start it** →
