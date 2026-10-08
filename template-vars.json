@@ -20,8 +20,8 @@
         "isOptional": true
     },
     "API_MASTER_KEY": {
-        "defaultValue": "",
-        "description": "Your admin API key. Set it once, BEFORE first boot: OpenWA seeds this exact value as the default ADMIN key (needs 32+ chars in production). Leave blank and OpenWA prints a random owa_k1_ key to the first-boot logs instead. Has no effect after the first boot — rotate keys in the dashboard. Blank = safe random default.",
+        "defaultValue": "owa_k1_${{secret(64, \"abcdef0123456789\")}}",
+        "description": "Your admin API key. Prefilled with a fresh owa_k1_<64-hex> key per deployment via Railway's secret() function. OpenWA seeds this exact value as the default ADMIN key on first boot (needs 32+ chars in production); overwrite it with your own value to use that instead. No effect after the first boot (empty key table) — thereafter rotate keys in the dashboard.",
         "isOptional": true
     },
     "API_KEY_PEPPER": {
